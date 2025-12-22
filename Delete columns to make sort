@@ -1,0 +1,38 @@
+/**
+ * @param {string[]} strs
+ * @return {number}
+ */
+var minDeletionSize = function(strs) {
+    const n = strs.length;
+    const m = strs[0].length;
+
+       let dp = new Array(m).fill(1);
+
+    for (let j = 0; j < m; j++) {
+        for (let i = 0; i < j; i++) {
+            let valid = true;
+
+            for (let r = 0; r < n; r++) {
+                if (strs[r][i] > strs[r][j]) {
+                    valid = false;
+                    break;
+                }
+            }
+
+            if (valid) {
+                dp[j] = Math.max(dp[j], dp[i] + 1);
+            }
+        }
+    }
+
+    const longest = Math.max(...dp);
+    return m - longest;
+};
+
+    
+strs = ["babca","bbazb"]
+columns = 5
+
+let keptColumns = 2
+const deletedColumns = 3  
+
